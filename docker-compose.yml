@@ -1,0 +1,73 @@
+version: "3.8"
+
+services:
+  backend:
+    build: ./backend
+    container_name: acadex-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - FLASK_ENV=production
+      - SECRET_KEY=${SECRET_KEY:-super-secret-key-change-me}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY:-jwt-secret-key-change-me}
+      - DATABASE_URL=sqlite:///acadex.db
+      - LLM_BASE_URL=http://ollama:11434
+      - LLM_MODEL=${LLM_MODEL:-gemma:2b}
+      - CORS_ORIGINS=http://localhost:3000,http://frontend:3000
+      - SMTP_SERVER=${SMTP_SERVER:-}
+      - SMTP_PORT=${SMTP_PORT:-587}
+      - SMTP_USERNAME=${SMTP_USERNAME:-}
+      - SMTP_PASSWORD=${SMTP_PASSWORD:-}
+      - SMTP_FROM_EMAIL=${SMTP_FROM_EMAIL:-noreply@acadex.ai}
+      - SMTP_FROM_NAME=${SMTP_FROM_NAME:-AdaptIQ Platform}
+    volumes:
+      - backend-data:/app/instance
+      - backend-uploads:/uploads
+      - backend-certs:/app/certificates
+    depends_on:
+      - ollama
+    restart: unless-stopped
+    networks:
+      - acadex-network
+
+  frontend:
+    build: ./frontend
+    container_name: acadex-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - acadex-network
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: acadex-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    restart: unless-stopped
+    networks:
+      - acadex-network
+    # Uncomment for GPU support:
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+
+volumes:
+  backend-data:
+  backend-uploads:
+  backend-certs:
+  ollama-data:
+
+networks:
+  acadex-network:
+    driver: bridge

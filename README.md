@@ -275,4 +275,3 @@ LLM_MODEL=llama3:8b
 
 ---
 
-Built with ❤️ by **ACADEX AI Team**

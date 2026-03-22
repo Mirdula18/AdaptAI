@@ -1,4 +1,4 @@
-# 🎓 AdaptIQ — ACADEX AI
+#  AdaptIQ — ACADEX AI
 
 > **Complete, Offline-Capable, AI-Powered Adaptive Learning Platform**
 

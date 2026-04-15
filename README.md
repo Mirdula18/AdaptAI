@@ -8,7 +8,7 @@ AdaptIQ is a full-stack learning management system with AI quiz generation, pers
 
 ---
 
-## ✨ Features
+## Features
 
 | Module | Description |
 |---|---|

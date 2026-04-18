@@ -5,9 +5,7 @@
 AdaptIQ is a full-stack learning management system with AI quiz generation, personalized roadmaps, and comprehensive analytics — all powered by local LLM inference via Ollama.
 
 ![Stack](https://img.shields.io/badge/Backend-Flask-blue) ![Stack](https://img.shields.io/badge/Frontend-Next.js-black) ![Stack](https://img.shields.io/badge/LLM-Ollama-green) ![Stack](https://img.shields.io/badge/DB-SQLite-orange) ![Stack](https://img.shields.io/badge/Theme-Purple-purple)
-
 ---
-
 ## Features
 
 | Module | Description |
